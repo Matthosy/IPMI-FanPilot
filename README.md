@@ -8,35 +8,44 @@ A simple and effective IPMI fan controller for servers. Simply enter your server
 
 This application requires the following components to run properly:
 
-- Node.js 14.0 or higher
-- npm (Node Package Manager)
-- ipmitool installed and accessible on Windows PATH
+- **Node.js 18.0 or higher** (for direct installation)
+- **npm** (Node Package Manager)
+- **ipmitool** installed and accessible
+  - Windows: Add to PATH or use PowerShell
+  - Linux: `apt-get install ipmitool`
+  - Docker: Pre-installed in image
 - A server with IPMI interface enabled (Dell, HP, Lenovo, Supermicro, IBM)
 
 ---
 
 ## Installation
 
-### Step 1: Install Node.js
+### Option 1: Node.js Direct Installation
+
+#### Step 1: Install Node.js
 
 Download and install Node.js from https://nodejs.org/ (LTS version recommended). This will automatically include npm.
 
-### Step 2: Install ipmitool
+#### Step 2: Install ipmitool
 
+**Windows:**
 Download ipmitool for Windows and add it to your system PATH so it can be executed from any directory. Ensure the command works by opening Command Prompt and running:
 
     ipmitool -V
 
-If the command is not recognized, add the ipmitool installation folder to your Windows PATH environment variable.
+**Linux:**
+Install via package manager:
 
-### Step 3: Clone or Download the Repository
+    sudo apt-get install ipmitool
+
+#### Step 3: Clone or Download the Repository
 
 Navigate to where you want to install the application and clone the repository or download the files.
 
     git clone https://github.com/dev-luigi/IPMI-FanPilot.git
     cd IPMI-FanPilot
 
-### Step 4: Install Project Dependencies
+#### Step 4: Install Project Dependencies
 
 Install all required Node.js packages listed in package.json:
 
@@ -46,9 +55,72 @@ This will create a node_modules folder containing Express.js and all other depen
 
 ---
 
+### Option 2: Docker (Recommended)
+
+IPMI-FanPilot is available as a Docker image for easy deployment!
+
+#### Method A: Build Locally with Dockerfile
+
+```bash
+# Clone the repository
+git clone https://github.com/dev-luigi/IPMI-FanPilot.git
+cd IPMI-FanPilot
+
+# Build the image
+docker build -t ipmi-fanpilot:latest .
+
+# Run the container
+docker run -p 3000:3000 ipmi-fanpilot:latest
+```
+
+Access at: http://localhost:3000
+
+#### Method B: Pull Pre-built Image from Docker Hub
+
+```bash
+# Pull the official image
+docker pull devluigi06/ipmi-fanpilot:latest
+
+# Run the container
+docker run -p 3000:3000 devluigi06/ipmi-fanpilot:latest
+```
+
+Access at: http://localhost:3000
+
+**Docker Hub Repository:** https://hub.docker.com/r/devluigi06/ipmi-fanpilot
+
+#### Method C: Docker Compose
+
+Create a `docker-compose.yml` file in your project directory:
+
+```yaml
+version: '3.8'
+services:
+  ipmi-fanpilot:
+    image: devluigi06/ipmi-fanpilot:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ipmi-fanpilot-data:/app
+    restart: unless-stopped
+
+volumes:
+  ipmi-fanpilot-data:
+```
+
+Then run:
+
+```bash
+docker-compose up -d
+```
+
+---
+
 ## Running the Application
 
-### Using the Start Script (Windows - Recommended)
+### Direct Installation (Node.js)
+
+#### Using the Start Script (Windows)
 
 Simply double-click the start.bat file. The script will automatically:
 - Request administrator privileges
@@ -56,19 +128,23 @@ Simply double-click the start.bat file. The script will automatically:
 - Start the Node.js server
 - Display any errors if they occur
 
-    start.bat
-
-The batch file will remain open and show output, making it easy to diagnose any issues.
-
-### Using Command Prompt or PowerShell
+#### Using Command Prompt or PowerShell
 
 Navigate to the application folder and run:
+
+    npm start
+
+or
 
     node server.js
 
 The server will start on port 3000. Open your browser and go to:
 
     http://localhost:3000
+
+### Docker Installation
+
+The application automatically starts when the container runs. Access at http://localhost:3000
 
 ---
 
@@ -107,10 +183,13 @@ On your first launch:
     ├── server.js                 Main Node.js application
     ├── package.json              Project dependencies
     ├── package-lock.json         Dependency lock file
-    ├── start.bat                 Windows startup script
+    ├── Dockerfile                Docker configuration
+    ├── docker-compose.yml        Docker Compose setup
     ├── README.md                 This file
-    ├── LICENSE                   MIT or Apache-2.0 license
+    ├── SECURITY.md               Security guidelines
+    ├── LICENSE                   MIT license
     ├── .gitignore                Git ignore configuration
+    ├── .dockerignore             Docker ignore configuration
     │
     ├── public/
     │   └── index.html            Web interface dashboard
@@ -127,8 +206,12 @@ On your first launch:
 - **No Plain Text:** No credentials stored in plain text on disk
 - **Unique IV:** Each encryption uses a unique Initialization Vector
 - **Input Validation:** IPMI commands protected against injection attacks
-- **Secure Execution:** Commands executed through PowerShell with validation
+- **Secure Execution:** Commands executed with validation
 - **Auto-Generated File:** credentials.json is created automatically, no manual setup needed
+- **Security Patched:** All CVEs resolved in Docker image
+- **Non-root Container:** Docker runs as non-root user for security
+
+For detailed security information, see `SECURITY.md`
 
 ---
 
@@ -177,7 +260,9 @@ Find and kill the process using port 3000:
     netstat -ano | findstr :3000
     taskkill /PID <PID> /F
 
-Or change the PORT variable in server.js.
+Or change the PORT variable in server.js or use a different port with Docker:
+
+    docker run -p 3001:3000 devluigi06/ipmi-fanpilot:latest
 
 ---
 
@@ -185,11 +270,13 @@ Or change the PORT variable in server.js.
 
 This application works with any server that supports IPMI 2.0 including:
 
-- Dell PowerEdge (all models with iDRAC)
-- Supermicro (all models with IPMI BMC)
-- HP ProLiant (with ILO)
-- Lenovo ThinkSystem (with XCC)
-- IBM System X (with IMM)
+- **Dell PowerEdge:** R620, R640, R650, R720, R730, R750 (12G-13G series)
+- **Supermicro:** All models with IPMI BMC
+- **HP ProLiant:** All models with ILO
+- **Lenovo ThinkSystem:** All models with XCC
+- **IBM System X:** All models with IMM
+
+**Note:** Some newer Dell 14G/15G servers (R740XD, R750) may have IPMI fan control blocked by firmware as a security restriction from Dell.
 
 Ensure IPMI is enabled and accessible on your network.
 
@@ -197,18 +284,19 @@ Ensure IPMI is enabled and accessible on your network.
 
 ## Features
 
-- Web-based dashboard with intuitive fan speed dial
-- Manual fan speed control (0-100%)
-- Automatic mode (server manages fan speed)
-- Preset speed buttons (20%, 30%, 50%, 70%, 100%)
-- Secure credential storage (AES-256 encryption)
-- Save/load/clear credentials automatically
-- Command history log
-- Real-time status messages
-- Responsive design for desktop and tablet
-- Error handling with clear messages
-- Administrator privilege detection
-- No credential configuration needed (auto-generated and encrypted)
+- 🌐 Web-based dashboard with intuitive fan speed dial
+- 🎚️ Manual fan speed control (0-100%)
+- ⚙️ Automatic mode (server manages fan speed)
+- ⏱️ Preset speed buttons (20%, 30%, 50%, 70%, 100%)
+- 🔒 Secure credential storage (AES-256 encryption)
+- 💾 Save/load/clear credentials automatically
+- 📋 Command history log
+- 📊 Real-time status messages
+- 📱 Responsive design for desktop and tablet
+- ⚠️ Error handling with clear messages
+- 🐳 Docker support with pre-built image
+- 🔄 Cross-platform support (Windows, Linux, Docker)
+- ✅ All security vulnerabilities patched
 
 ---
 
@@ -229,13 +317,13 @@ To contribute:
 
 Luigi Tanzillo  
 GitHub: https://github.com/dev-luigi  
-Portfolio: https://luigi-tanzillo.42web.io  
+Docker Hub: https://hub.docker.com/r/devluigi06/ipmi-fanpilot  
 
 ---
 
 ## License
 
-This project is licensed under the MIT License or Apache License 2.0. See the LICENSE file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
@@ -248,6 +336,12 @@ This tool is provided as-is for managing IPMI-enabled servers. Use at your own r
 ## Support
 
 For issues, questions, or suggestions:
-- Open an issue on GitHub
-- Check existing documentation
-- Review server logs for errors
+- Open an issue on GitHub: https://github.com/dev-luigi/IPMI-FanPilot/issues
+- Check Docker Hub: https://hub.docker.com/r/devluigi06/ipmi-fanpilot
+- Review documentation and SECURITY.md
+- Check server logs for errors
+
+---
+
+**Last Updated:** November 2025  
+**Version:** 1.0.0
